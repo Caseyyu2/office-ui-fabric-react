@@ -315,7 +315,7 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
         ) }
         <div className={ classNames.dateContainer } >
           { displayDatePickerFormat !== DatePickerFormat.timeOnly &&
-            <div ref={ this._resolveRef('_datePickerDiv') }>
+            <div className={ classNames.dateContainerChildDiv } ref={ this._resolveRef('_datePickerDiv') }>
               <TextField
                 className={ classNames.dateTextField }
                 ariaLabel={ ariaLabel }
@@ -401,6 +401,15 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
   public focus(): void {
     if (this._textField) {
       this._textField.focus();
+    }
+  }
+
+  public setSelectedDateTime(selectedDate: Date | undefined | null) {
+
+    const { setSelectedDateTime } = this.props;
+    // Prop callback
+    if (setSelectedDateTime) {
+      setSelectedDateTime(selectedDate);
     }
   }
 
@@ -510,6 +519,8 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
         }
       }
     } else {
+      // For most scenarios only showing time picker indicates there's a default date implying somewhere in the system
+      // So we are allowing user to provide the default date themselves
       if (isTimeChanged) {
         // For most scenarios only showing time picker indicates there's a default date implying somewhere in the system
         // So we are allowing user to provide the default date themselves
