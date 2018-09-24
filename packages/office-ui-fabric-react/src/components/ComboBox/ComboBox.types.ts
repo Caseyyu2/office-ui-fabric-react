@@ -156,11 +156,6 @@ export interface IComboBoxProps extends ISelectableDroppableTextProps<IComboBox>
   isButtonAriaHidden?: boolean;
 
   /**
-   * Override the tabIndex of -1 that callouts by default have
-   */
-  overrideCalloutTabIndex?: boolean;
-
-  /**
    * Whether this picker should be considered aria required
    */
   ariaRequired?: boolean;
@@ -184,11 +179,6 @@ export interface IComboBoxProps extends ISelectableDroppableTextProps<IComboBox>
    * signifies whether freeform inputs will be added to the list of options or not
    */
   freeformWillNotBeAdded?: boolean;
-
-  /**
-   * Determines if page is in Right-to-Left configuration
-   */
-  isRTL?: boolean;
 }
 
 export interface IComboBoxStyles {

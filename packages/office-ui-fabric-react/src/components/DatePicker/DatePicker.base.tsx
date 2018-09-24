@@ -324,7 +324,7 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
     time.hour = (time.hour) ? time.hour : 0;
     time.minute = (time.minute) ? time.minute : 0;
 
-    if (!newDate) {
+    if (!newDate && newDate !== '') {
       // Reset invalid input field, if formatting is available
       this.setState({
         formattedDate: this.props.displayFormattedDate
@@ -332,10 +332,12 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
     }
 
     // Return the correct date object with the time modified
-    const updatedDate = (newDate ? newDate : this.state.selectedDate as Date);
+    const updatedDate = (newDate || newDate === '' ? newDate : this.state.selectedDate as Date);
 
     if (updatedDate) {
       updatedDate.setHours(time.hour, time.minute);
+      return updatedDate;
+    } else if (updatedDate === '') {
       return updatedDate;
     }
 
