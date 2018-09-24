@@ -405,6 +405,13 @@ export class CalendarDay extends BaseComponent<ICalendarDayProps, ICalendarDaySt
       targetDate = addDays(date, 1);
     }
 
+    //To make focus move onto Previous month arrow button on pressing tab on date in calendar
+    else if(ev.which === 9 && !ev.shiftKey)
+		{
+			ev.preventDefault();
+			ev.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('.ms-DatePicker-prevMonth').focus();
+		}
+
     // Don't navigate to out-of-bounds date
     if (targetDate && (minDate ? compareDatePart(minDate, targetDate) < 1 : true) && (maxDate ? compareDatePart(targetDate, maxDate) < 1 : true)) {
       this.props.onNavigateDate(targetDate, true);
@@ -417,6 +424,16 @@ export class CalendarDay extends BaseComponent<ICalendarDayProps, ICalendarDaySt
     if (ev.which === KeyCodes.enter || ev.which === KeyCodes.space) {
       callback();
     }
+
+    //To make focus move onto today date in calendar after pressing shift tab on previous month button.
+		else if(ev.which === 9 && ev.shiftKey )
+		{
+			if(!(ev.currentTarget.nextElementSibling ==null))
+			{
+			ev.preventDefault();
+			ev.currentTarget.parentElement.parentElement.parentElement.querySelector('.ms-DatePicker-day--today').parentElement.focus();
+			}
+		}
   }
 
   @autobind
