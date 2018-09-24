@@ -154,6 +154,31 @@ export interface IComboBoxProps extends ISelectableDroppableTextProps<IComboBox>
    * @default true
    */
   isButtonAriaHidden?: boolean;
+
+  /**
+   * Whether this picker should be considered aria required
+   */
+  ariaRequired?: boolean;
+
+  /**
+   * Open on focus
+   */
+  alwaysOpenOnFocus?: boolean;
+
+  /**
+   * Do not refocus on option selected
+   */
+  doNotForceRefocus?: boolean;
+
+  /**
+   * Should callout return focus
+   */
+  shouldCalloutReturnFocus?: boolean;
+
+  /**
+   * signifies whether freeform inputs will be added to the list of options or not
+   */
+  freeformWillNotBeAdded?: boolean;
 }
 
 export interface IComboBoxStyles {

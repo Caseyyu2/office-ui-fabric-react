@@ -24,15 +24,18 @@ const getDisabledStyles = memoizeFunction((theme: ITheme): IRawStyle => {
   const { semanticColors } = theme;
 
   return {
-    backgroundColor: semanticColors.disabledBackground,
-    borderColor: semanticColors.disabledBackground,
-    color: semanticColors.disabledText,
+    backgroundColor: 'transparent', // semanticColors.disabledBackground,
+    // borderColor: semanticColors.disabledBackground,
+    color: 'rgb(51, 51, 51)',// semanticColors.disabledText,
     cursor: 'default',
     selectors: {
       [HighContrastSelector]: {
         borderColor: 'GrayText',
         color: 'GrayText'
-      }
+      },
+      ':hover': {
+        backgroundColor: 'rgb(226, 226, 226)',
+      },
     },
   };
 });
@@ -135,6 +138,7 @@ export const getOptionStyles = memoizeFunction((
 export const getCaretDownButtonStyles = memoizeFunction((
   theme: ITheme,
   customStyles?: Partial<IButtonStyles>,
+  isRTL?: boolean
 ): IButtonStyles => {
   const { semanticColors } = theme;
 
@@ -151,7 +155,8 @@ export const getCaretDownButtonStyles = memoizeFunction((
       position: 'absolute',
       // The negative positioning accounts for the 1px root border now that box-sizing is border-box
       top: '-1px',
-      right: '-1px',
+      right: isRTL ? 'auto' : '-1px',
+      left: isRTL ? '-1px' : 'auto',
       height: ComboBoxHeight,
       lineHeight: ComboBoxLineHeight,
       width: ComboxBoxCaretDownWidth,

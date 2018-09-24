@@ -69,7 +69,7 @@ export class CalloutContentBase extends BaseComponent<ICalloutProps, ICalloutSta
     directionalHint: DirectionalHint.bottomAutoEdge
   };
 
-  private _classNames: {[key in keyof ICalloutContentStyles]: string };
+  private _classNames: { [key in keyof ICalloutContentStyles]: string };
   private _didSetInitialFocus: boolean;
   private _hostElement: HTMLDivElement;
   private _calloutElement: HTMLDivElement;
@@ -150,6 +150,7 @@ export class CalloutContentBase extends BaseComponent<ICalloutProps, ICalloutSta
       backgroundColor,
       calloutMaxHeight,
       onScroll,
+      shouldRestoreFocus,
     } = this.props;
     target = this._getTarget();
     const { positions } = this.state;
@@ -187,6 +188,7 @@ export class CalloutContentBase extends BaseComponent<ICalloutProps, ICalloutSta
           tabIndex={ -1 } // Safari and Firefox on Mac OS requires this to back-stop click events so focus remains in the Callout.
           // See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
           ref={ this._resolveRef('_calloutElement') }
+          role='presentation'
         >
 
           { beakVisible && (
@@ -204,7 +206,7 @@ export class CalloutContentBase extends BaseComponent<ICalloutProps, ICalloutSta
             className={ this._classNames.calloutMain }
             onDismiss={ this.dismiss }
             onScroll={ onScroll }
-            shouldRestoreFocus={ true }
+            shouldRestoreFocus={ this.props.shouldRestoreFocus }
             style={ overflowStyle }
           >
             { children }

@@ -204,6 +204,11 @@ export interface ICalloutProps {
   * Optional styles for the component.
   */
   getStyles?: IStyleFunction<ICalloutContentStyleProps, ICalloutContentStyles>;
+
+  /**
+   *  Should restoreFocus
+   */
+  shouldRestoreFocus?: boolean;
 }
 
 export interface ICalloutContentStyleProps {
