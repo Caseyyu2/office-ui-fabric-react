@@ -623,6 +623,8 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
   // Structured data model wouln't work, so we have to parse out the hour and time
   // By default our time is xx:xx
   private _parseHourAndTime(time: string) {
+    // this removes any special RTL and LTR characters that may affect IE
+    time = time.replace(/[^ -~]/g, '');
     const indexOfSeprator = time.indexOf(':');
     let hour = Number(time.substring(0, indexOfSeprator)), minute = Number(time.substring(indexOfSeprator + 1, indexOfSeprator + 3));
 
@@ -630,8 +632,11 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
     hour = (hour) ? hour : 0;
     minute = (minute) ? minute : 0;
 
-    if ((hour === 12 && time.indexOf('AM') > -1) || (hour !== 12 && time.indexOf('PM') > -1)) {
-      hour = hour + 12;
+    if (hour === 12 && time.indexOf('AM') > -1) {
+      hour = 0;
+    }
+    else if (hour !== 12 && time.indexOf('PM') > -1) {
+      hour = hour - 12;
     }
 
     return {
