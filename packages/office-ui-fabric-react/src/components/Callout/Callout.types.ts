@@ -209,6 +209,11 @@ export interface ICalloutProps {
    *  Should restoreFocus
    */
   shouldRestoreFocus?: boolean;
+
+  /**
+  * Determines if we want to override the callout tabIndex
+  */
+  overrideTabIndex?: boolean;
 }
 
 export interface ICalloutContentStyleProps {

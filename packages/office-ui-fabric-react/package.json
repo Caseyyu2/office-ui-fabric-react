@@ -18,9 +18,8 @@
     "update-snapshots": "node ../../scripts/build.js jest -u"
   },
   "disabledTasks": [
-  "sass",
-  "tslint",
-  "jest"
+    "tslint",
+    "jest"
   ],
   "devDependencies": {
     "@types/enzyme": "3.1.5",

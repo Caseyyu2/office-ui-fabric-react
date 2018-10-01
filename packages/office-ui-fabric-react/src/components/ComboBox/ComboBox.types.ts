@@ -179,6 +179,16 @@ export interface IComboBoxProps extends ISelectableDroppableTextProps<IComboBox>
    * signifies whether freeform inputs will be added to the list of options or not
    */
   freeformWillNotBeAdded?: boolean;
+
+  /**
+  * Determines if page is in Right-to-Left configuration
+  */
+  isRTL?: boolean;
+
+  /**
+  * Determines if we want to override the callout tabIndex
+  */
+  overrideCalloutTabIndex?: boolean;
 }
 
 export interface IComboBoxStyles {
