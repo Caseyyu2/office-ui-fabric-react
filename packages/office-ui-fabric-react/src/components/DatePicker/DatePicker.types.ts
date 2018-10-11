@@ -268,6 +268,11 @@ export interface IDatePickerProps extends React.Props<DatePickerBase>, IWithResp
    * Format of the time component between 12hr clocks and 24hr clocks
    */
   isTwentyFourHourTimeFormat?: boolean;
+
+  /**
+   * testhooks
+   */
+  testhooks?: string;
 }
 
 export enum DatePickerFormat {
