@@ -322,7 +322,7 @@ export const getStyles = memoizeFunction((
       height: '28px',
       borderStyle: 'none',
       outline: 'none',
-      font: 'inherit',
+      font: '1rem',
       textOverflow: 'ellipsis',
       padding: '0',
     },

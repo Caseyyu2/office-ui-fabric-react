@@ -304,14 +304,14 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
         selectedDate: value || undefined,
         formattedDate: (formatDate && (value || oldValue)) ? formatDate(oldValue || value) : '',
       });
-    } else if (formattedDate || this.props.defaultSetTimeValue !== nextProps.defaultSetTimeValue) {
+    } else if (formattedDate || this.props.defaultSetTimeValue !== nextProps.defaultSetTimeValue || this.props.displayFormattedDate !== nextProps.displayFormattedDate) {
       const selectedDate = this.calculatingTime(defaultSetTimeValue!, parseDateFromString!(formattedDate!)!);
 
-      if (selectedDate) {
+      if (selectedDate || selectedDate == "") {
         this.setState({
-          formattedDate: formattedDate,
-          selectedDate: selectedDate,
-          selectedTime: defaultSetTimeValue
+          formattedDate: nextProps.displayFormattedDate,
+          selectedDate: nextProps.rawDate,
+          selectedTime: nextProps.defaultSetTimeValue
         });
       }
     }
@@ -628,12 +628,6 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
 
     // this removes any special RTL and LTR characters that may affect IE
     time = time.replace(/[^ -~]/g, '');
-    if (time === this.props.defaultInitialTimeValue) {
-      return {
-        hour: 0,
-        minute: 0,
-      };
-    }
 
     const indexOfSeprator = time.indexOf(':');
     if (indexOfSeprator < 0) {
