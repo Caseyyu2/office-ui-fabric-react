@@ -237,4 +237,9 @@ export interface ITextFieldProps extends React.AllHTMLAttributes<HTMLInputElemen
    * Whether this picker should be considered aria required
    */
   ariaRequired?: boolean;
+
+  /**
+   * test hooks
+   */
+  testhooks?: string;
 }

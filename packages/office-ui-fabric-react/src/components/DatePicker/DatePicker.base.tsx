@@ -324,7 +324,7 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
     time.hour = (time.hour) ? time.hour : 0;
     time.minute = (time.minute) ? time.minute : 0;
 
-    if (!newDate && newDate !== '') {
+    if (!newDate) {
       // Reset invalid input field, if formatting is available
       this.setState({
         formattedDate: this.props.displayFormattedDate
@@ -332,12 +332,10 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
     }
 
     // Return the correct date object with the time modified
-    const updatedDate = (newDate || newDate === '' ? newDate : this.state.selectedDate as Date);
+    const updatedDate = (newDate ? newDate : this.state.selectedDate as Date);
 
     if (updatedDate) {
       updatedDate.setHours(time.hour, time.minute);
-      return updatedDate;
-    } else if (updatedDate === '') {
       return updatedDate;
     }
 
@@ -374,7 +372,9 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
       displayDatePickerFormat,
       timeComboboxStyles,
       defaultSetTimeValue,
-      getStyles
+      getStyles,
+      ariaRequired,
+      testhooks
     } = this.props;
     const timeOptions = (this.props.timeOptions) ? this.props.timeOptions : this._timeOptions;
     const { isDatePickerShown, formattedDate, selectedDate, errorMessage } = this.state;
@@ -430,6 +430,8 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
                 value={ formattedDate }
                 componentRef={ this._resolveRef('_textField') }
                 role={ allowTextInput ? 'combobox' : 'menu' }
+                ariaRequired={ ariaRequired }
+                testhooks={ testhooks }
               />
             </div> }
           { displayDatePickerFormat !== DatePickerFormat.dateOnly && <ComboBox
@@ -623,19 +625,28 @@ export class DatePickerBase extends BaseComponent<IDatePickerProps, IDatePickerS
   // Structured data model wouln't work, so we have to parse out the hour and time
   // By default our time is xx:xx
   private _parseHourAndTime(time: string) {
+
     // this removes any special RTL and LTR characters that may affect IE
     time = time.replace(/[^ -~]/g, '');
+
     const indexOfSeprator = time.indexOf(':');
+    if (indexOfSeprator < 0) {
+      return {
+        hour: 0,
+        minute: 0
+      };
+    }
+
     let hour = Number(time.substring(0, indexOfSeprator)), minute = Number(time.substring(indexOfSeprator + 1, indexOfSeprator + 3));
 
     // Invalid input return default value
-    hour = (hour) ? hour : 0;
-    minute = (minute) ? minute : 0;
+    hour = (!Number.isNaN(hour)) ? hour : 0;
+    minute = (!Number.isNaN(minute)) ? minute : 0;
 
-    if (hour === 12 && time.indexOf('AM') > -1) {
-      hour = 0;
+    if (hour !== 12 && time.indexOf('PM') > -1) {
+      hour = hour + 12;
     }
-    else if (hour !== 12 && time.indexOf('PM') > -1) {
+    else if (hour === 12 && time.indexOf('AM') > -1) {
       hour = hour - 12;
     }
 

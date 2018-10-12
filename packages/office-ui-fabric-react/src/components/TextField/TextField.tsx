@@ -385,6 +385,7 @@ export class TextField extends BaseComponent<ITextFieldProps, ITextFieldState> i
         onFocus={ this._onFocus }
         onBlur={ this._onBlur }
         aria-required={ (this.props.ariaRequired || this.props.required) ? true : undefined }
+        data-id={ this.props.testhooks }
       />
     );
   }
